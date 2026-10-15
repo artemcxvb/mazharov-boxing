@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0c0c0e">
+<title>Mazharov Boxing</title>
+<link rel="manifest" href="manifest.json">
+<style>
+:root{--bg:#0c0c0e;--card:#161618;--orange:#ff6a00;--text:#f5f5f7;--text-sec:#8e8e93;--border:#2c2c2e;--green:#30d158;--red:#ff453a;--blue:#0a84ff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#000;color:var(--text);display:flex;justify-content:center}
+.phone{width:100%;max-width:430px;min-height:100vh;background:var(--bg)}
+.header{padding:16px 20px 12px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
+.logo{font-weight:800;font-size:18px}.logo span{color:var(--orange)}
+.lang{background:var(--card);border:1px solid var(--border);color:var(--text);padding:6px 12px;border-radius:8px;font-size:13px}
+.content{padding:16px;padding-bottom:90px}
+.screen{display:none}.screen.active{display:block}
+h1{font-size:26px;font-weight:700;margin-bottom:4px}
+.sub{color:var(--text-sec);font-size:14px;margin-bottom:16px}
+.filters{display:flex;gap:8px;overflow-x:auto;margin-bottom:16px}
+.filter{background:var(--card);border:1px solid var(--border);color:var(--text-sec);padding:8px 14px;border-radius:20px;font-size:13px;white-space:nowrap;cursor:pointer}
+.filter.active{background:var(--orange);color:#fff;border-color:var(--orange)}
+.card{background:var(--card);border-radius:14px;padding:14px;margin-bottom:12px}
+.row{display:flex;align-items:center;gap:12px;padding:10px 0}
+.row+.row{border-top:1px solid var(--border)}
+.avatar{width:46px;height:46px;border-radius:50%;background:#2c2c2e;display:flex;align-items:center;justify-content:center;font-weight:700}
+.info{flex:1}.name{font-weight:600}.meta{font-size:13px;color:var(--text-sec)}
+.badge{font-size:11px;font-weight:600;padding:3px 8px;border-radius:12px}
+.badge-group{background:rgba(255,106,0,.15);color:var(--orange)}
+.badge-ind{background:rgba(10,132,255,.15);color:var(--blue)}
+.badge-paid{background:rgba(48,209,88,.15);color:var(--green)}
+.badge-debt{background:rgba(255,69,58,.15);color:var(--red)}
+.btn{background:var(--orange);color:#fff;border:none;border-radius:12px;padding:14px;font-weight:600;width:100%;cursor:pointer;font-size:16px}
+.btn-sec{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-sm{width:auto;padding:8px 14px;font-size:13px;border-radius:10px}
+.btn-ok{background:var(--green)}.btn-no{background:#3a3a3c;color:#aaa}
+.bar{height:6px;background:#2c2c2e;border-radius:3px;margin:6px 0 10px}
+.fill{height:100%;background:var(--orange);border-radius:3px}
+.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:rgba(22,22,24,.95);backdrop-filter:blur(12px);border-top:1px solid var(--border);display:flex;padding:6px 0 18px}
+.tab{flex:1;text-align:center;font-size:10px;color:var(--text-sec);cursor:pointer}
+.tab.active{color:var(--orange)}
+.tab-icon{font-size:20px;margin-bottom:2px}
+</style>
+</head>
+<body>
+<div class="phone">
+<div class="header"><div class="logo">MAZHAROV <span>BOXING</span></div><select class="lang" onchange="setLang(this.value)"><option value="ru">RU</option><option value="pl">PL</option><option value="de">DE</option><option value="en">EN</option></select></div>
+<div id="students" class="screen active"><div class="content"><h1 id="h-students">Ученики</h1><div class="sub">24 активных</div><div class="filters"><div class="filter active">Все</div><div class="filter">Youth</div><div class="filter">Elite</div></div><div class="card" id="list-students"></div></div></div>
+<div id="attendance" class="screen"><div class="content"><h1>Посещаемость</h1><div class="sub">Сегодня • Technique & Sparring</div><div class="card"><span class="badge badge-group">Групповая</span><div style="margin-top:6px;font-weight:600">18:00 – 19:30</div></div><div class="card" id="list-att"></div><button class="btn" onclick="alert('Сохранено')">Сохранить</button></div></div>
+<div id="schedule" class="screen"><div class="content"><h1>Тренировки</h1><div class="sub">Групповые и индивидуальные</div><div class="card"><span class="badge badge-group">Групповая</span><div style="font-weight:600;margin:6px 0">Technique & Sparring</div><div class="meta">Сегодня 18:00 • 12/15 мест</div><button class="btn" style="margin-top:10px">Записаться</button></div><div class="card"><span class="badge badge-ind">Индивидуальная</span><div style="font-weight:600;margin:6px 0">Артём Волков — Техника</div><div class="meta">Завтра 16:00 • 60 мин</div><button class="btn btn-sec" style="margin-top:10px">Записаться</button></div></div></div>
+<div id="progress" class="screen"><div class="content"><h1>Прогресс</h1><div class="sub">Артём Волков • Youth</div><div class="card"><div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-sec)"><span>Джеб</span><span>78%</span></div><div class="bar"><div class="fill" style="width:78%"></div></div><div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-sec)"><span>Кросс</span><span>65%</span></div><div class="bar"><div class="fill" style="width:65%"></div></div><div style="margin-top:12px;font-size:14px;color:var(--text-sec)">Вес</div><div style="font-size:28px;font-weight:700">66 кг <span style="color:var(--green);font-size:16px">−6 кг</span></div></div></div></div>
+<div id="payments" class="screen"><div class="content"><h1>Платежи</h1><div class="sub">Октябрь 2026</div><div class="card"><div class="row"><div class="avatar">А</div><div class="info"><div class="name">Артём Волков</div><div class="meta">Абонемент</div></div><span class="badge badge-paid">Оплачено</span></div><div class="row"><div class="avatar">Д</div><div class="info"><div class="name">Дмитрий Соколов</div><div class="meta">Абонемент</div></div><span class="badge badge-debt">150 zł</span></div></div><button class="btn">Добавить платёж</button></div></div>
+<div class="tabbar"><div class="tab active" onclick="show('students')"><div class="tab-icon">👥</div><div id="t-students">Ученики</div></div><div class="tab" onclick="show('attendance')"><div class="tab-icon">✅</div><div id="t-att">Посещаемость</div></div><div class="tab" onclick="show('schedule')"><div class="tab-icon">📅</div><div id="t-sch">Тренировки</div></div><div class="tab" onclick="show('progress')"><div class="tab-icon">📈</div><div id="t-prog">Прогресс</div></div><div class="tab" onclick="show('payments')"><div class="tab-icon">💳</div><div id="t-pay">Платежи</div></div></div>
+</div>
+<script>
+const students=[{n:"Артём Волков",g:"Youth",w:"60 кг",p:true},{n:"Дмитрий Соколов",g:"Elite",w:"67 кг",p:false},{n:"Иван Петров",g:"Youth",w:"75 кг",p:true},{n:"Кирилл Морозов",g:"Elite",w:"66 кг",p:true}];
+const tr={ru:{s:"Ученики",a:"Посещаемость",sc:"Тренировки",p:"Прогресс",py:"Платежи"},pl:{s:"Uczniowie",a:"Obecność",sc:"Treningi",p:"Postęp",py:"Płatności"},de:{s:"Schüler",a:"Anwesenheit",sc:"Trainings",p:"Fortschritt",py:"Zahlungen"},en:{s:"Students",a:"Attendance",sc:"Sessions",p:"Progress",py:"Payments"}};
+function setLang(l){const t=tr[l];document.getElementById('h-students').textContent=t.s;document.getElementById('t-students').textContent=t.s;document.getElementById('t-att').textContent=t.a;document.getElementById('t-sch').textContent=t.sc;document.getElementById('t-prog').textContent=t.p;document.getElementById('t-pay').textContent=t.py;}
+function render(){document.getElementById('list-students').innerHTML=students.map(s=>`<div class="row"><div class="avatar">${s.n[0]}</div><div class="info"><div class="name">${s.n}</div><div class="meta">${s.g} • ${s.w}</div></div></div>`).join('');document.getElementById('list-att').innerHTML=students.map((s,i)=>`<div class="row"><div class="avatar">${s.n[0]}</div><div class="info"><div class="name">${s.n}</div><div class="meta">${s.g}</div></div><button class="btn btn-sm ${s.p?'btn-ok':'btn-no'}" onclick="toggle(${i})">${s.p?'✓':'–'}</button></div>`).join('');}
+function toggle(i){students[i].p=!students[i].p;render();}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));event.currentTarget.classList.add('active');}
+render();
+</script>
+</body>
+</html>
