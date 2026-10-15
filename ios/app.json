@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "Mazharov Boxing",
+    "slug": "mazharov-boxing",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mazharov.boxing"
+    },
+    "android": {
+      "package": "com.mazharov.boxing"
+    }
+  }
+}
